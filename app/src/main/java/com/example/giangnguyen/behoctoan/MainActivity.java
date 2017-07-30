@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
     CountDownTimer thongbao = new CountDownTimer(2000,500) {
         @Override
         public void onTick(long l) {
@@ -78,12 +79,11 @@ public class MainActivity extends AppCompatActivity {
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 diem = 0;
                 dung.setEnabled(true);
                 sai.setEnabled(true);
                 play.setEnabled(false);
+
                 time.setProgress(max);
                 score.setText("" + diem);
                 timer.start();
@@ -100,8 +100,8 @@ public class MainActivity extends AppCompatActivity {
         dung.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 play.setEnabled(false);
+
                 if (a + b == c) {
                     diem++;
                     score.setText("" + diem);
@@ -128,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
         sai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 play.setEnabled(false);
                 if (a + b != c) {
                     diem++;
