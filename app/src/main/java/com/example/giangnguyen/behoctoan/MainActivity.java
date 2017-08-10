@@ -1,156 +1,128 @@
 package com.example.giangnguyen.behoctoan;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ProgressBar;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.Random;
 
-import static android.R.attr.max;
+
 
 public class MainActivity extends AppCompatActivity {
-    int a = 0;
-    int b = 0;
-    int c = 0;
+    int a;
+    int b;
+    int c;
     int diem = 0;
-    final Random r = new Random();
     TextView score,cauhoi;
-    Button dung, sai, play;
-    ProgressBar time;
-
-
-    CountDownTimer timer = new CountDownTimer(60000,60) {
+    ImageButton True, False;
+    CountDownTimer countDownTimer = new CountDownTimer(5000,1000) {
         @Override
         public void onTick(long l) {
-            time.setProgress(time.getProgress()-2);
-            if(time.getProgress()==0)
-            {
-                dung.setEnabled(false);
-                sai.setEnabled(false);
-                play.setEnabled(true);
-                cauhoi.setText("Bạn Thua Rồi"+"\n"+"Điểm số: "+diem);
-
-            }
+            score.setText("" + l/1000);
         }
 
         @Override
         public void onFinish() {
-
+            GameoverDialog();
         }
     };
 
-    CountDownTimer thongbao = new CountDownTimer(2000,500) {
-        @Override
-        public void onTick(long l) {
-
-        }
-
-        @Override
-        public void onFinish() {
-            cauhoi.setText("Bấm \"Chơi\" để bắt đầu");
-            time.setProgress(0);
-
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Imag();
+        PlayDialog();
 
-        time =(ProgressBar) findViewById(R.id.timer) ;
-        score = (TextView) findViewById(R.id.score);
-        cauhoi = (TextView) findViewById(R.id.cauhoi);
-        dung = (Button) findViewById(R.id.dung);
-        sai = (Button) findViewById(R.id.sai);
-        play = (Button) findViewById(R.id.play);
-
-        dung.setEnabled(false);
-        sai.setEnabled(false);
-
-        time.setProgress(max);
-
-
-        play.setOnClickListener(new View.OnClickListener() {
+        True.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                diem = 0;
-                dung.setEnabled(true);
-                sai.setEnabled(true);
-                play.setEnabled(false);
-
-                time.setProgress(max);
-                score.setText("" + diem);
-                timer.start();
-
-                a = r.nextInt(10) + 1;
-                b = r.nextInt(10) + 1;
-
-                c = r.nextInt(3) + a + b;
-
-                cauhoi.setText(a + " + " + b + " = " + c);
-            }
-        });
-
-        dung.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                play.setEnabled(false);
 
                 if (a + b == c) {
-                    diem++;
-                    score.setText("" + diem);
+                    load();
+                    countDownTimer.start();
 
-                    a = r.nextInt(10) + 1;
-                    b = r.nextInt(10) + 1;
-
-                    c = r.nextInt(3) + a + b;
-
-                    cauhoi.setText(a + " + " + b + " = " + c);
-                } else {
-                    dung.setEnabled(false);
-                    sai.setEnabled(false);
-                    play.setEnabled(true);
-
-                    timer.cancel();
-                    cauhoi.setText("Bạn Sai Rồi");
-                    thongbao.start();
-                    diem = 0;
                 }
+                else GameoverDialog();
             }
         });
 
-        sai.setOnClickListener(new View.OnClickListener() {
+        False.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                play.setEnabled(false);
                 if (a + b != c) {
-                    diem++;
-                    score.setText("" + diem);
 
+                    load();
+                    countDownTimer.start();
 
-                    a = r.nextInt(10) + 1;
-                    b = r.nextInt(10) + 1;
-
-                    c = r.nextInt(3) + a + b;
-
-                    cauhoi.setText(a + " + " + b + " = " + c);
-                } else {
-                    dung.setEnabled(false);
-                    sai.setEnabled(false);
-                    play.setEnabled(true);
-                    timer.cancel();
-                    cauhoi.setText("Bạn Sai Rồi");
-                    thongbao.start();
-                    diem = 0;
                 }
+                else GameoverDialog();
             }
         });
 
     }
+
+    private void PlayDialog()
+    {
+        final Dialog PlayDialog = new Dialog(MainActivity.this);
+        PlayDialog.setContentView(R.layout.playlayout);
+        PlayDialog.setCancelable(false);
+        ImageButton Play = (ImageButton) PlayDialog.findViewById(R.id.playImg1) ;
+        PlayDialog.show();
+
+        Play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                load();
+                countDownTimer.start();
+                PlayDialog.dismiss();
+            }
+        });
+    }
+
+    private void GameoverDialog()
+    {
+        final Dialog GameOverDialog = new Dialog(MainActivity.this);
+        GameOverDialog.setContentView(R.layout.game_over_dialog);
+        ImageButton Play = (ImageButton) GameOverDialog.findViewById(R.id.playImg2) ;
+        GameOverDialog.setCancelable(false);
+        GameOverDialog.show();
+        Play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                load();
+                countDownTimer.start();
+                GameOverDialog.dismiss();
+            }
+        });
+
+    }
+    private void load()
+    {
+        Random random = new Random();
+        a = random.nextInt(10) + 1;
+        b = random.nextInt(10) + 1;
+        int temp = random.nextInt(5)+1 ;
+
+        if(temp%2 ==0)c = a + b;
+        else c = temp+a+b;
+
+        cauhoi.setText(a + " + " + b + " = " + c);
+    }
+
+    private  void Imag()
+    {
+        score = (TextView) findViewById(R.id.score);
+        cauhoi = (TextView) findViewById(R.id.cauhoi);
+        True = (ImageButton) findViewById(R.id.True);
+        False = (ImageButton) findViewById(R.id.False);
+    }
+
+
 }
