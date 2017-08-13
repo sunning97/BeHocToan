@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
     android:background="@drawable/gameover">
 
     <ImageButton
@@ -12,6 +12,18 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/play" />
+
+    <TextView
+        android:id="@+id/scoree"
+        android:textColor="#ff0011"
+        android:text="0"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="103dp"
+        android:layout_above="@+id/playImg2"
+        android:layout_toEndOf="@+id/playImg2" />
 
 
 </RelativeLayout>
