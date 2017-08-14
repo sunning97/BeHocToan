@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         final MediaPlayer songtrue = MediaPlayer.create(this, R.raw.coin);
         final MediaPlayer songfalse = MediaPlayer.create(this, R.raw.game_over);
         Imag();
+        addData();
         randomColor();
         PlayDialog();
 
@@ -97,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void PlayDialog() {
-
         final Dialog PlayDialog = new Dialog(MainActivity.this);
         PlayDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         PlayDialog.setContentView(R.layout.playlayout);
@@ -116,13 +116,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void GameoverDialog() {
+        int bestscore = readData();
         countDownTimer.cancel();
-        addData();
         final Dialog GameOverDialog = new Dialog(MainActivity.this);
         GameOverDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         GameOverDialog.setContentView(R.layout.game_over_dialog);
         TextView scoree = (TextView) GameOverDialog.findViewById(R.id.scoree);
+        TextView bestscore_tv = (TextView) GameOverDialog.findViewById(R.id.bestscore);
         scoree.setText("" + score);
+        bestscore_tv.setText("" + bestscore);
         ImageButton Play = (ImageButton) GameOverDialog.findViewById(R.id.playImg2);
         GameOverDialog.setCancelable(false);
         GameOverDialog.show();
@@ -142,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void load() {
+        int bs = readData();
+        if(score> bs) addData();
         curr = 100;
         Random random = new Random();
         a = random.nextInt(10) + 1;
@@ -174,18 +178,17 @@ public class MainActivity extends AppCompatActivity {
 
     private int readData() {
         SharedPreferences sharedPreferences = getSharedPreferences(DATA, Context.MODE_PRIVATE);
-        int score = sharedPreferences.getInt(HIGHT_SCORE, 20);
-        return score;
+        int bsscore = sharedPreferences.getInt(HIGHT_SCORE,0);
+        return bsscore;
     }
 
     private void addData() {
-        //if (score > readData()) {
+
             SharedPreferences sharedPreferences = getSharedPreferences(DATA, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
             editor.putInt(HIGHT_SCORE, score);
             editor.apply();
-        //}
 
 
     }

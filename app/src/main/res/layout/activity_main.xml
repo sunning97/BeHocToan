@@ -1,53 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bacground"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/bacground">
+    android:layout_height="match_parent">
 
 
-        <ProgressBar
-            android:progressDrawable="@drawable/custom_progressbar"
-            android:id="@+id/progressBar"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:max="100" />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:max="100"
+        android:progressDrawable="@drawable/custom_progressbar" />
 
-        <LinearLayout
-            android:layout_below="@id/progressBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/linearLayout">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Score: "
-            android:textSize="30sp" />
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/progressBar">
 
         <TextView
+            android:textStyle="bold"
             android:id="@+id/score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
-            android:textSize="30sp" />
-        </LinearLayout>
-
-        <TextView
-
-            android:id="@+id/cowntime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="30sp" />
+            android:textColor="#ffffff"
+            android:textSize="35sp" />
+    </LinearLayout>
 
     <TextView
+
+        android:id="@+id/cowntime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp" />
+
+    <TextView
+        android:textStyle="bold"
+        android:textColor="#ffffff"
         android:id="@+id/cauhoi"
         android:layout_width="match_parent"
         android:layout_height="250dp"
+        android:layout_below="@+id/linearLayout"
         android:gravity="center"
-        android:text='Bấm "Chơi" để bắt đầu'
-        android:textSize="40sp"
-        android:layout_below="@+id/linearLayout" />
+        android:text=""
+        android:textSize="60sp" />
 
 
     <LinearLayout
