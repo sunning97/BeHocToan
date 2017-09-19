@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -53,10 +53,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final MediaPlayer songtrue = MediaPlayer.create(this, R.raw.coin);
-        final MediaPlayer songfalse = MediaPlayer.create(this, R.raw.game_over);
+        //final MediaPlayer songtrue = MediaPlayer.create(this, R.raw.coin);
+        //final MediaPlayer songfalse = MediaPlayer.create(this, R.raw.game_over);
         Imag();
         addData();
+        Toast.makeText(MainActivity.this,"Ahihi",Toast.LENGTH_SHORT).show();
         randomColor();
         PlayDialog();
 
